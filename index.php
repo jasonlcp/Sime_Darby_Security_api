@@ -545,7 +545,40 @@ pending.pause();
         socket.on('disconnect', function () {
 
               $("#error_message").html('<p style="color:red;max-width:80%;">Server Disconnected!</p>');
-              var socket = io.connect( 'http://192.168.0.104:3002',{secure:false} );
+              var sck = io.connect( 'http://192.168.0.104:3002',{secure:false} );
+              sck.on('impromptu_arrive', function (data) {
+
+            
+
+                if(track_id == ""){
+
+                if(data == true){
+
+                    
+
+                var scan_video = "<img width='520' height='240' src='scan.gif' style='object-contain:fit' />";
+
+                setTimeout(function(){  insert_ic.play() }, 600);
+
+                setTimeout(function(){ $("#error_message").html('<p style="color:green;max-width:80%;">Please Insert Identity Card...</p>');}, 600);
+
+                setTimeout(function(){ $("#show_video").html(scan_video);},600); 
+
+                }else if(data == false){
+
+                setTimeout(function(){  insert_ic.pause() }, 300);
+
+                setTimeout(function(){    $("#error_message").html('<p style="color:white;max-width:80%;">Please insert your identity card and scan QR code...</p>') }, 600);
+
+                setTimeout(function(){   $("#entry_details").html('') }, 600);
+
+                setTimeout(function(){   $("#show_video").html('') }, 600);
+
+                }
+
+                }
+
+                });
 
 
         });
